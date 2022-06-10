@@ -36,6 +36,7 @@
             @endforeach
         </tbody>
     </table>
-    <a href="{{ url('home') }}" class="btn btn-success">Home</a>
+    {{ $favoritos->links() }}
+    <a href="{{ url('home') }}" class="btn btn-success">Home</a>    
 </div>
 @endsection
