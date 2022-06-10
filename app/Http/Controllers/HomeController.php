@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorito_categoria;
+use App\Models\Favorito;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $datos['favoritos']=Favorito_categoria::join('categorias', 'favorito_categorias.categoria_id', '=', 'categorias.id')
+        ->join('favoritos', 'favorito_categorias.favorito_id', '=', 'favoritos.id')
+        ->join('users', 'favorito_categorias.user_id', '=', 'users.id')
+        ->where('favoritos.visibilidad', 1)
+        ->paginate(10);
+        return view('home', $datos);
     }
 }
